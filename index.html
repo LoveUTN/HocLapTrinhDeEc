@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Học Lập Trình Dễ Ẹc Publisher</title>
+<meta name="description" content="Internal publishing tool that uploads Học Lập Trình Dễ Ẹc's own videos to its own YouTube channel and Facebook Page.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;700&family=Be+Vietnam+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pitch: #1e2a44;
+    --pitch-dark: #141c30;
+    --chalk: #f7f7fa;
+    --ink: #1a1d26;
+    --muted: #5a6072;
+    --line: #dcdfe8;
+    --card: #3ddc97;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--chalk);
+    color: var(--ink);
+    font: 400 17px/1.6 "Be Vietnam Pro", "Helvetica Neue", Arial, sans-serif;
+  }
+  a { color: var(--pitch); text-underline-offset: 3px; }
+  a:focus-visible { outline: 3px solid var(--card); outline-offset: 2px; }
+
+  header {
+    background: var(--pitch);
+    color: var(--chalk);
+    position: relative;
+    overflow: hidden;
+  }
+  /* Code braces as background decoration */
+  header::before {
+    content: "{ }";
+    position: absolute;
+    right: 24px; top: 50%; transform: translateY(-50%);
+    font: 700 220px/1 "JetBrains Mono", "SF Mono", Menlo, monospace;
+    color: rgba(61, 220, 151, .12);
+    pointer-events: none;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  .hero { padding: 72px 0 64px; position: relative; z-index: 1; }
+  .brand {
+    font: 700 15px/1 "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    letter-spacing: .02em;
+    color: var(--card);
+    margin: 0 0 40px;
+    opacity: .85;
+  }
+  h1 {
+    font: 700 clamp(32px, 6.5vw, 52px)/1.1 "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    margin: 0 0 20px;
+    max-width: 16ch;
+  }
+  .lede { font-size: 19px; max-width: 34em; margin: 0; color: rgba(247, 247, 250, .9); }
+
+  main { padding: 56px 0 24px; }
+  h2 {
+    font: 700 28px/1.15 "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    margin: 48px 0 12px;
+  }
+  h2:first-child { margin-top: 0; }
+  p { margin: 0 0 16px; max-width: 38em; }
+  ul { padding-left: 20px; margin: 0 0 16px; }
+  li { margin-bottom: 8px; }
+
+  .flow {
+    list-style: none; padding: 0; margin: 20px 0 0;
+    border-left: 3px solid var(--pitch);
+  }
+  .flow li { padding: 4px 0 14px 20px; position: relative; }
+  .flow li::before {
+    content: ""; position: absolute; left: -8px; top: 11px;
+    width: 13px; height: 13px; border-radius: 50%;
+    background: var(--chalk); border: 3px solid var(--pitch);
+  }
+  .flow strong { display: block; font-weight: 600; }
+
+  .note {
+    border-left: 6px solid var(--card);
+    background: #fff;
+    padding: 16px 20px;
+    margin: 24px 0;
+  }
+
+  footer {
+    border-top: 1px solid var(--line);
+    margin-top: 48px;
+    padding: 24px 0 40px;
+    color: var(--muted);
+    font-size: 15px;
+  }
+  footer nav a { margin-right: 20px; }
+
+  @media (max-width: 560px) {
+    header::before { display: none; }
+    .hero { padding: 48px 0 44px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap hero">
+    <p class="brand">Học Lập Trình Dễ Ẹc</p>
+    <h1>Học Lập Trình Dễ Ẹc Publisher</h1>
+    <p class="lede">An internal tool that publishes Học Lập Trình Dễ Ẹc's own programming tutorial videos to its own YouTube channel and Facebook Page.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <h2>What it does</h2>
+  <p>Học Lập Trình Dễ Ẹc produces beginner-friendly programming tutorial videos. This tool saves the team from uploading every video by hand: once a video is ready, the tool sends it, together with its title, description and visibility setting, to the channel's YouTube account and Facebook Page.</p>
+
+  <h2>Who uses it</h2>
+  <p>Only the owner of the Học Lập Trình Dễ Ẹc channel. The tool has no public sign-up, no user accounts and no audience-facing features. It acts on a single YouTube channel and a single Facebook Page, both owned by the operator.</p>
+
+  <h2>How it uses the YouTube API Services</h2>
+  <p>The tool uses the YouTube Data API v3 for one purpose: uploading videos to the channel owner's own YouTube channel.</p>
+  <ol class="flow">
+    <li><strong>One-time authorization</strong>The channel owner signs in with Google and grants the <code>youtube.upload</code> permission.</li>
+    <li><strong>Upload</strong>The tool calls <code>videos.insert</code> with the video file and its metadata.</li>
+    <li><strong>Done</strong>The video appears on the channel. The tool reads no other channel data, comments, analytics or subscriber information.</li>
+  </ol>
+
+  <div class="note">
+    <p style="margin:0">By using this tool, the channel owner agrees to be bound by the <a href="https://www.youtube.com/t/terms">YouTube Terms of Service</a>. Google's handling of data is described in the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>.</p>
+  </div>
+
+  <h2>Privacy</h2>
+  <p>Read how authorization tokens and video metadata are handled in the <a href="privacy.html">Privacy Policy</a>.</p>
+
+  <h2>Contact</h2>
+  <p>Questions about this tool: <a href="mailto:thanhtung17051991@gmail.com">thanhtung17051991@gmail.com</a></p>
+
+  <footer>
+    <nav>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="https://www.youtube.com/t/terms">YouTube Terms of Service</a>
+      <a href="mailto:thanhtung17051991@gmail.com">Contact</a>
+    </nav>
+    <p style="margin-top:16px">© 2026 Học Lập Trình Dễ Ẹc</p>
+  </footer>
+</main>
+</body>
+</html>
